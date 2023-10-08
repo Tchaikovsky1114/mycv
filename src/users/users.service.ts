@@ -27,7 +27,7 @@ export class UsersService {
   }
   
   async find(email: string) {
-    const user =  await this.repo.findOne({ where: { email } });
+    const user =  await this.repo.find({ where: { email } });
     
     if (!user) {
       throw new NotFoundException('찾으시는 유저는 존재하지 않습니다.')
