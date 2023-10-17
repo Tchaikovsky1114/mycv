@@ -10,7 +10,8 @@ export const CurrentUser = createParamDecorator(
   // context인 이유는 http뿐만 아니라 gRPC, websocket, graphql 등 다양한 프로토콜을 지원하기 때문이다.
   (data: never, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
-    console.log(request.session.userId);
+    // request.currentUser는 CurrentUserInterceptor에서 설정한 값이다.
+    // CurrentUserInterceptor를 통하여 currentUser의 값을 받을 수 있다.
     return request.currentUser;
   });
 
