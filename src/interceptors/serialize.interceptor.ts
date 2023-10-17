@@ -16,10 +16,10 @@ export class SerializeInterceptor implements NestInterceptor {
   intercept(_: ExecutionContext, handler: CallHandler): Observable<any> {
     
     // 요청 핸들러가 요청을 처리하기 전에 실행된다
-    console.log('핸들러에 접근중')
+    // console.log('핸들러에 접근중')
     return handler.handle().pipe(
       map((data: any) => {
-        console.log('핸들러에 접근 완료');
+        // console.log('핸들러에 접근 완료');
         return plainToInstance(this.dto, data, {
           excludeExtraneousValues: true,
         });
