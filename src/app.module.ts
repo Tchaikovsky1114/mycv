@@ -15,6 +15,7 @@ import { Report } from './reports/report.entity';
     synchronize: true, // TODO: disable this in production
   }),
   ReportsModule, UsersModule],
+  
   controllers: [AppController],
   providers: [AppService],
 })
