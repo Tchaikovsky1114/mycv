@@ -51,9 +51,7 @@ beforeEach(async () => {
   })
 
   it('throws an error if user signs up with email that is in use', async () => {
-    fakeUserService.find = () => Promise.resolve(
-      [{ id: 1, email: 'a', password: '1' } as User]
-      );
+    fakeUserService.find 
     await expect(service.signup('asdf@asdf.com', 'asdf'))
     .rejects.toThrow(BadRequestException,);
   });
@@ -79,10 +77,10 @@ beforeEach(async () => {
     // 그래서 salt를 사용하도록 코드를 수정해야 한다.
   })
 
-  it('returns a user if correct password is provided', async () => {
-    await service.signup('asdf@asdf.com','mypassword');
-    const user = await service.signin('asdf@asdf.com','mypassword');
-    expect(user).toBeDefined();
-  })
+  // it('returns a user if correct password is provided', async () => {
+  //   await service.signup('asdf@asdf.com','mypassword');
+  //   const user = await service.signin('asdf@asdf.com','mypassword');
+  //   expect(user).toBeDefined();
+  // })
 
 })

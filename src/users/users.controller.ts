@@ -6,7 +6,9 @@ import { UserDto } from './dtos/user.dto';
 
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { AuthGuard } from 'src/guards/auth.guard';
+// 상대경로로 작성하는 습관 들이기
+import { AuthGuard } from '../guards/auth.guard';
+
 
 
 @Controller('auth')
