@@ -9,10 +9,8 @@ import { CurrentUser } from './decorators/current-user.decorator';
 // 상대경로로 작성하는 습관 들이기
 import { AuthGuard } from '../guards/auth.guard';
 
-
-
 @Controller('auth')
-
+@UseGuards(AuthGuard)
 export class UsersController {
   
   constructor(
@@ -26,7 +24,7 @@ export class UsersController {
   // }
 
   @Get('/whoami')
-  @UseGuards(AuthGuard)
+  
   whoAmI(@CurrentUser() user: UserDto) {
     return user;
   }
@@ -38,14 +36,16 @@ export class UsersController {
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    const user = this.authService.signup(body.email, body.password);
-    session.userId = (await user).id;
+    const user = await this.authService.signup(body.email, body.password);
+    // session.userId = (await user).id;
+    return user;
   }
 
   @Post('/signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
    const user = this.authService.signin(body.email, body.password);
    session.userId = (await user).id;
+  
   }
 
   @Get('/user/:id')
@@ -57,8 +57,6 @@ export class UsersController {
     }
     return user;
   }
-
-
 
   @Get('/user')
   findByEmail(@Query('email') email:string) {

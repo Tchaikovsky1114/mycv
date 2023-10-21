@@ -5,6 +5,7 @@ import { User } from "./user.entity"
 import { UsersService } from "./users.service"
 import { UsersController } from "./users.controller"
 import { Controller } from "@nestjs/common/interfaces"
+import { NotFoundException } from "@nestjs/common"
 
 
 describe('UserService', () => {
