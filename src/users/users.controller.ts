@@ -10,7 +10,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
-@UseGuards(AuthGuard)
+
 export class UsersController {
   
   constructor(
@@ -24,7 +24,7 @@ export class UsersController {
   // }
 
   @Get('/whoami')
-  
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: UserDto) {
     return user;
   }
@@ -36,16 +36,14 @@ export class UsersController {
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    const user = await this.authService.signup(body.email, body.password);
-    // session.userId = (await user).id;
-    return user;
+    const user = this.authService.signup(body.email, body.password);
+    session.userId = (await user).id;
   }
 
   @Post('/signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
    const user = this.authService.signin(body.email, body.password);
    session.userId = (await user).id;
-  
   }
 
   @Get('/user/:id')

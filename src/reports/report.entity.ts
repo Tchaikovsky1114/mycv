@@ -4,7 +4,7 @@ import {Entity,Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Report {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({})
   id: number;
 
   @Column()
@@ -26,10 +26,6 @@ export class Report {
   lat: number;
 
   @Column()
-  mileage: number;
-
-  @Column()
-  approved: boolean; // 
-
+  kilometer: number;
   
 }

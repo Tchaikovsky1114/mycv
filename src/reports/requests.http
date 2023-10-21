@@ -1,0 +1,12 @@
+POST http://localhost:3000/reports
+content-type: application/json
+
+{
+  "make":"제네시스",
+  "model":"GV70",
+  "year": 2022,
+  "kilometer": 23367,
+  "lng": 0,
+  "lat": 0,
+  "price": 43000000
+}
