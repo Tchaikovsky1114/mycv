@@ -3,6 +3,10 @@ import { Entity, Column, PrimaryGeneratedColumn, AfterInsert,AfterRemove,AfterUp
 
 } from "typeorm";
 import { Report } from "../reports/report.entity";
+
+
+console.log('Report Entity:',Report);
+
 @Entity()
 export class User {
 
@@ -15,6 +19,7 @@ export class User {
   @Column()
   password: string;
 
+  // 함수로 타입을 래핑하는 이유는 순환 종속성 이슈를 막기 위함이다
   @OneToMany(() => Report, (report) => report.user)
   reports: Report[]
 

@@ -3,6 +3,8 @@ ManyToOne
 } from 'typeorm';
 import { User } from '../users/user.entity'
 
+
+console.log('User Entity', User); // undefined because not excute user.entity.file
 @Entity()
 export class Report {
 
