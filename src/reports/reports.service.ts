@@ -13,6 +13,7 @@ export class ReportsService {
   create(body:CreateReportDto,user: User) {
     const report = this.repo.create(body);
     report.user = user;
+    console.log(report); 
     return this.repo.save(report);
   }
 }

@@ -17,3 +17,13 @@ content-type: application/json
   "email":"test100@test.test",
   "password":"mypassword"
 }
+
+### SignOut
+
+POST http://localhost:3000/auth/signout
+content-type: application/json
+
+{
+  "email":"test100@test.test",
+  "password":"mypassword"
+}
