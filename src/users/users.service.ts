@@ -23,19 +23,13 @@ export class UsersService {
     if(!id) {
       return null;
     }
-    if (!user) {
-      throw new NotFoundException('찾으시는 유저는 존재하지 않습니다.')
-    }
-    return user;
+    
+    return user ?? null;
   }
   
   async find(email: string) {
     const user =  await this.repo.find({ where: { email } });
-    
-    if (!user) {
-      throw new NotFoundException('찾으시는 유저는 존재하지 않습니다.')
-    }
-    return user;
+    return user ?? null;
   }
   
   async update(id:number, attrs:UpdateUserDto) {
