@@ -42,13 +42,16 @@ export class UsersController {
 
   @Post('/signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
-   const user = this.authService.signin(body.email, body.password);
-   session.userId = (await user).id;
+   const user = await this.authService.signin(body.email, body.password);
+   session.userId =  user.id;
+   const {id,email, ...rest} = user;
+   
+   return {id,email};
   }
 
   @Get('/user/:id')
   async findById(@Param('id',ParseIntPipe) id: number) {
-    console.log('handler is running');
+    
     const user = await this.usersService.findOne(id);
     if(!user) {
       throw new NotFoundException('찾으시는 유저는 존재하지 않습니다.')
