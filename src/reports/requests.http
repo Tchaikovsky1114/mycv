@@ -3,10 +3,19 @@ content-type: application/json
 
 {
   "make":"제네시스",
-  "model":"GV70",
-  "year": 2022,
-  "kilometer": 23367,
-  "lng": 0,
-  "lat": 0,
-  "price": 43000000
+  "model":"G80",
+  "year": 2023,
+  "kilometer": 1104,
+  "lng": 33.1,
+  "lat": 32.1,
+  "price": 55200000
+}
+
+### 차량등록 승인
+
+PATCH http://localhost:3000/reports/approve/10
+content-type: application/json
+
+{
+  "approved": true
 }

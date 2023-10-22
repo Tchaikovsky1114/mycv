@@ -22,6 +22,9 @@ export class User {
   // 함수로 타입을 래핑하는 이유는 순환 종속성 이슈를 막기 위함이다
   @OneToMany(() => Report, (report) => report.user)
   reports: Report[]
+  
+  @Column({ default: true}) //TODO: default value 수정
+  admin: boolean;
 
   @AfterInsert()
   logInsert() {

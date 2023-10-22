@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ReportsModule } from './reports/reports.module';
@@ -7,6 +7,7 @@ import {  TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+const cookieSession = require('cookie-session');
 
 @Module({
   imports:[
@@ -37,4 +38,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+
+//const app = await NestFactory.create(AppModule);
+// app.enableCors({ credentials: true, origin: true });
+
+export class AppModule {
+  configure(consumer:MiddlewareConsumer) {
+    consumer.apply(
+      cookieSession({ keys: ['supercookie'] }),
+    ).forRoutes('*');
+  }
+}
