@@ -2,20 +2,25 @@ POST http://localhost:3000/reports
 content-type: application/json
 
 {
-  "make":"제네시스",
-  "model":"G80",
-  "year": 2023,
-  "kilometer": 1104,
-  "lng": 33.1,
-  "lat": 32.1,
-  "price": 55200000
+  "make":"hyundai",
+  "model":"grandeur",
+  "year": 2018,
+  "kilometer": 51230,
+  "lng": 40.1,
+  "lat": 42.1,
+  "price": 5500000
 }
 
 ### 차량등록 승인
 
-PATCH http://localhost:3000/reports/approve/10
+PATCH http://localhost:3000/reports/approve/20
 content-type: application/json
 
 {
   "approved": true
 }
+
+
+### 견적 가져오기
+
+GEt http://localhost:3000/reports?make=hyundai&model=grandeur&lng=40.1&lat=42.1&year=2018&kilometer=45000

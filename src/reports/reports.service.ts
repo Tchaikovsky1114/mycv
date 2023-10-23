@@ -5,24 +5,37 @@ import { Report } from './report.entity';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { User } from '../users/user.entity'
 import { UpdateApprovedReportDto } from './dtos/update-approved-report.dto';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 @Injectable()
 export class ReportsService {
   constructor(
-    @InjectRepository(Report) private repo:Repository<Report>
-    ) {}
+    @InjectRepository(Report) private repo:Repository<Report>) {}
+
+  createEstimate({ make, model, lng, lat, year, kilometer }: GetEstimateDto) {
+    return this.repo
+    .createQueryBuilder()
+    .select('AVG(price)', 'price')
+    .where('make = :make', { make })
+    .andWhere('model = :model', { model })
+    .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
+    .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+    .andWhere('year - :year BETWEEN -3 AND 3', { year })
+    .andWhere('approved IS TRUE')
+    .orderBy('ABS(kilometer - :kilometer)', 'DESC')
+    .setParameters({ kilometer })
+    .limit(3)
+    .getRawOne();
+  }
 
   create(body:CreateReportDto,user: User) {
     const report = this.repo.create(body);
     report.user = user;
-    console.log(report); 
     return this.repo.save(report);
   }
   
   async findOne(id:number) {
     return await this.repo.findOne({
-      where:{
-      id
-    }})
+      where: { id }})
   }
 
   async updateApproved(id:number, body:UpdateApprovedReportDto) {

@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Body, UseGuards, Patch, Param, ParseIntPipe} from '@nestjs/common';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
+import { Controller, Post, Get,Query, Body, UseGuards, Patch, Param, ParseIntPipe} from '@nestjs/common';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -13,6 +14,11 @@ import { AdminGuard } from '../guards/admin.guard';
 export class ReportsController {
   constructor(private reportsService: ReportsService){}
 
+  @Get()
+  getEstimate(@Query() query: GetEstimateDto) {
+    return this.reportsService.createEstimate(query);
+  }
+
   @Post()
   @UseGuards(AuthGuard)
   @Serialize(ReportDto)
@@ -26,4 +32,6 @@ export class ReportsController {
   updateApprovedReport(@Param('id',ParseIntPipe) id:number, @Body() body:UpdateApprovedReportDto){
     return this.reportsService.updateApproved(id,body)
   }
+
+
 }
